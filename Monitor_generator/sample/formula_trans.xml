@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policy>
+    <policyid>1</policyid>
+	<formulas>
+	  <formula>
+	    <type>main</type>
+	    <exist>
+	      <var>x</var>
+	      <var>y</var>
+	       <atom>
+	         <atom_type>dynamic</atom_type>
+	         <rel>trans</rel>
+	         <var>x</var>
+	         <var>y</var>
+	       </atom>
+	    </exist>
+	  </formula>
+	  <formula>
+	    <type>rec:trans</type>
+	    <or>
+	      <atom>
+	        <atom_type>dynamic</atom_type>
+	        <rel> call </rel>
+	        <var> x </var>
+	        <var> y </var>
+	      </atom>
+	      <exist>
+	        <var> z </var>
+	        <and>
+	          <diamonddot>
+	            <metric> 10 </metric>
+	            <atom>
+	              <atom_type>dynamic</atom_type>
+	              <rel> trans </rel>
+	              <var> x </var>
+	              <var> z </var>
+	            </atom>
+	          </diamonddot>
+	          <atom>
+	            <atom_type>dynamic</atom_type>
+	            <rel> call </rel>
+	            <var> z </var>
+	            <var> y </var>
+	          </atom>
+	        </and>
+	      </exist>
+	    </or>
+	  </formula>
+	</formulas>
+</policy>

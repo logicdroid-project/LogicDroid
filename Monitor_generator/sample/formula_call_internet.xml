@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policy>
+    <policyid>2</policyid>
+	<formulas>
+	  <formula>
+	    <type>main</type>
+	    <exist>
+	      <var>x</var>
+	      <and>
+	        <atom>
+	          <atom_type>dynamic</atom_type>
+	          <rel>call</rel>
+	          <var>x</var>
+	          <var>object:internet</var>
+	        </atom>
+	        <not>
+		        <atom>
+		          <atom_type>static</atom_type>
+		          <rel>trusted</rel>
+		          <var>x</var>
+		        </atom>
+		    </not>
+	        <not>
+	        	<atom>
+	            	<atom_type>static</atom_type>
+	            	<rel>system</rel>
+	            	<var>x</var>
+	        	</atom>
+	        </not>
+	      </and>
+	    </exist>
+	  </formula>
+	</formulas>
+</policy>
