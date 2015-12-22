@@ -79,6 +79,8 @@ public class Monitoring {
 		policyObjectCount++;
 		policyObjects.add("call_privileged");
 		policyObjectCount++;
+		policyObjects.add("imei");
+		policyObjectCount++;
 		for (int i = 0; i < policy_list.objectCount; i++) {
 			// Object with fix localAppUID should not be added
 			try{
@@ -445,9 +447,10 @@ public class Monitoring {
 				traverse_vars(policy_list.formulas.get(i), vars, usedVars, policyObjects);
 			}
 			// Fix missing index bug
-			if (vars.length() > 0)
+			if (vars.length() > 0) {
 				vars.delete(vars.length() - 1, vars.length()); // removing the last ','
-			ps.println(indent[1] + "int" + vars.toString() + ";");
+				ps.println(indent[1] + "int" + vars.toString() + ";");
+			}
 			if (num_temp > 0) ps.println(indent[1] + "long delta;");
 			ps.println();
 			
@@ -661,20 +664,21 @@ public class Monitoring {
 		}
 	}
 	
-	private static void traverse_vars(Formula policy, StringBuilder sb, HashSet<String> usedVars, ArrayList<String> objects)
-	{
-		for (int i = policy.varCount - 1; i >= 0; i--)
-		{
-			if (!objects.contains(policy.vars.get(i)))
-			if (!usedVars.contains(policy.vars.get(i)))
-			{
-				usedVars.add(policy.vars.get(i));
-				sb.append(" " + policy.vars.get(i) + ",");
+	private static void traverse_vars(Formula policy, StringBuilder sb, HashSet<String> usedVars, ArrayList<String> objects) {
+		for (int i = policy.varCount - 1; i >= 0; i--) {
+			try {
+				Integer.parseInt(policy.vars.get(i));
+			}
+			catch (NumberFormatException e) {
+				if (!objects.contains(policy.vars.get(i)))
+					if (!usedVars.contains(policy.vars.get(i))) {
+						usedVars.add(policy.vars.get(i));
+						sb.append(" " + policy.vars.get(i) + ",");
+					}
 			}
 		}
 		
-		for (int i = 0; i < policy.count; i++)
-		{
+		for (int i = 0; i < policy.count; i++) {
 			traverse_vars(policy.sub.get(i), sb, usedVars, objects);
 		}
 	}

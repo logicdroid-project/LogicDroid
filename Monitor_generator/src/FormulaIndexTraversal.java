@@ -49,7 +49,7 @@ public class FormulaIndexTraversal {
 
 				// Add object:localUID
 				try {
-					var = "" + Integer.parseInt(var);
+					var = "mapping[" + Integer.parseInt(var) +"]";
 				}
 				catch (NumberFormatException e) {
 					var = Integer.toString(Monitoring.getCUID_localUID(var)); // Get the app ID from the mapping (integer)
